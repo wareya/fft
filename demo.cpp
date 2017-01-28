@@ -25,7 +25,7 @@ enum {
    ,TEST_BLANK
 };
 
-#define TEST TEST_NOISE
+#define TEST TEST_HALF
 
 void init(double* in_real, double* in_imag, uint64_t size)
 {
@@ -90,7 +90,7 @@ void init(double* in_real, double* in_imag, uint64_t size)
 
 int main()
 {
-    const int SIZE = 32;
+    const int SIZE = 16;
     srand(time(NULL));
     double* in_real  = (double*)malloc(sizeof(double)*SIZE);
     double* in_imag  = (double*)malloc(sizeof(double)*SIZE);
@@ -106,19 +106,11 @@ int main()
     
     fft(in_real, in_imag, SIZE, out_real, out_imag);
     
-    // operation only useful if former signal was not complex
-    if(TEST < TEST_COMPLEXIMPULSE or TEST > TEST_COMPLEXNOISE)
-        sanitize_fft(out_real, out_imag, SIZE);
-    
     puts("transform");
     puts("bin\treal\timag\tmag");
     for(int i = 0; i < SIZE; i++)
         printf("%d\t%.2f\t%.2f\t%.2f \n", i, out_real[i], out_imag[i], sqrt(out_real[i]*out_real[i]+out_imag[i]*out_imag[i]));
     puts("");
-    
-    // operation only useful if former signal was not complex
-    if(TEST < TEST_COMPLEXIMPULSE or TEST > TEST_COMPLEXNOISE)
-        unsanitize_fft(out_real, out_imag, SIZE);
     
     ifft(out_real, out_imag, SIZE, in_real, in_imag);
     
