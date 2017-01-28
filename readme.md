@@ -28,6 +28,8 @@ THIS SOFTWARE.
     *     out_real and out_imag work together to store a complex number (2d vector) representing the phase and amplitude of the given frequency band, even for wholly real inputs.
 * forwards:   if true, transform is forwards (fft). if false, transform is backwards (ifft).
 
+For a 8-sample input, the FFT's last three bins contain "negative" frequencies. (So, the last (size/2)-1 bins.) They are only meaningful for complex inputs.
+
 ## fft
 
 (\<same as fft_core, sans [gap] and [forwards]>)
