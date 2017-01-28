@@ -30,13 +30,13 @@ THIS SOFTWARE.
 
 ## fft
 
-(<same as fft_core, sans [gap] and [forwards]>)
+(\<same as fft_core, sans [gap] and [forwards]>)
 
     compute forwards fft.
 
 ## ifft
 
-(<same as fft_core, sans [gap] and [forwards]>)
+(\<same as fft_core, sans [gap] and [forwards]>)
 
     compute backwards fft (inverse fft, ifft)
 
