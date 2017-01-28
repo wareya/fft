@@ -39,7 +39,7 @@ normalize_fft
     divide the amplitude of each bin by the number of bins. obligatory after fft() for audio. modifies the input.
 sanitize_fft
 (in_real[], in_imag[], size)
-    moves all data to positive-frequency bins. yes, FFTs have negative frequencies for some reason. they're used to retain correlation data for complex inputs. for real inputs, the negative frequencies just mirror the positive ones and sap half their amplitude, therefore this function.
+    moves all data to positive-frequency bins. yes, FFTs have negative frequencies for some reason. they're used to retain correlation data for complex inputs. for real inputs, the negative frequencies just mirror the positive ones and sap half their amplitude, therefore this function. for an explanation of what negative frequencies mean, see http://dsp.stackexchange.com/questions/431/what-is-the-physical-significance-of-negative-frequencies .
 unsanitize_fft
 (in_real[], in_imag[], size)
     undo the above. note again that these two fuctions are not sensical for complex inputs.
