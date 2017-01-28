@@ -1,4 +1,4 @@
-fft.hpp
+# fft.hpp
 
 Public-domain single-header library implementing radix-2 decimation-in-time FFT (i.e. FFT for powers of 2)
 
@@ -14,7 +14,7 @@ OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
 THIS SOFTWARE.
 
-=fft_core=
+## fft_core
 
 (in_real[], in_imag[], size, gap, out_real[], out_imag[], forwards)
 
@@ -28,31 +28,31 @@ THIS SOFTWARE.
         out_real and out_imag work together to store a complex number (2d vector) representing the phase and amplitude of the given frequency band, even for wholly real inputs.
     forwards:   if true, transform is forwards (fft). if false, transform is backwards (ifft).
 
-=fft=
+## fft
 
 (<same as fft_core, sans [gap] and [forwards]>)
 
     compute forwards fft.
 
-=ifft=
+## ifft
 
 (<same as fft_core, sans [gap] and [forwards]>)
 
     compute backwards fft (inverse fft, ifft)
 
-=normalize_fft=
+## normalize_fft
 
 (in_real[], in_imag[], size)
 
     divide the amplitude of each bin by the number of bins. obligatory after fft() for audio. modifies the input.
 
-=sanitize_fft=
+## sanitize_fft
 
 (in_real[], in_imag[], size)
 
     moves all data to positive-frequency bins. yes, FFTs have negative frequencies for some reason. they're used to retain correlation data for complex inputs. for real inputs, the negative frequencies just mirror the positive ones and sap half their amplitude, therefore this function.
 
-=unsanitize_fft=
+## unsanitize_fft
 
 (in_real[], in_imag[], size)
 
