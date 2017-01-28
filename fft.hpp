@@ -143,4 +143,4 @@ void unsanitize_fft(double* input_real, double* input_imag, uint64_t size)
 
 #endif // ifndef FFT_CORE_ONLY
 
-#endif FFT_SINGLEHEADER_INCLUDED
+#endif // FFT_SINGLEHEADER_INCLUDED
