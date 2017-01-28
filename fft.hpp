@@ -48,9 +48,12 @@ unsanitize_fft
     undo the above. note again that these two fuctions are not sensical for complex inputs.
 */
 
+#include <stdlib.h>
 #include <stdint.h>
 #include <math.h>
-#include <stdlib.h>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif // ifndef M_PI
 
 // address of cell if base adderss not nullptr, nullptr otherwise
 #define fft_private_safe_addrof(ptr,i) ((ptr!=nullptr)?(&(ptr[i])):(nullptr))
