@@ -92,7 +92,6 @@ int main()
 {
     const int SIZE = 16;
     srand(time(NULL));
-    // Interleaved real then imaginary repeating (realness is less significant to address)
     double* in_real  = (double*)malloc(sizeof(double)*SIZE);
     double* in_imag  = (double*)malloc(sizeof(double)*SIZE);
     double* out_real = (double*)malloc(sizeof(double)*SIZE);
