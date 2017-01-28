@@ -25,7 +25,7 @@ enum {
    ,TEST_BLANK
 };
 
-#define TEST TEST_NOISE
+#define TEST TEST_IMPULSE
 
 void init(double* in_real, double* in_imag, uint64_t size)
 {
