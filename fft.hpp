@@ -121,12 +121,12 @@ void half_normalize_fft(double* input_real, double* input_imag, uint64_t size)
 void fft(double* input_real, double* input_imag, uint64_t size, double* output_real, double* output_imag)
 {
     fft_core(input_real, input_imag, size, 1, output_real, output_imag, 1);
-    half_normalize_fft(output_real, output_imag, size);
+    half_normalize_fft(output_real, output_imag, size); // allows calling fft() four times to result in the original signal with no amplitude change
 }
 void ifft(double* input_real, double* input_imag, uint64_t size, double* output_real, double* output_imag)
 {
     fft_core(input_real, input_imag, size, 1, output_real, output_imag, 0);
-    half_normalize_fft(output_real, output_imag, size);
+    half_normalize_fft(output_real, output_imag, size); // see above, also causes ifft(fft(x)) to result in the original signal with no amplitude change
 }
 
 // boost bins that are split into positive (A-handed spin) and negative (B-handed spin) parts
