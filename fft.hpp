@@ -120,7 +120,7 @@ void ifft(double* input_real, double* input_imag, uint64_t size, double* output_
 // Nonsensical transformation if the original signal contained both real and imaginary content.
 void sanitize_fft(double* input_real, double* input_imag, uint64_t size)
 {
-    for(uint64_t i = 1; i < size/2; i++)
+    for(uint64_t i = 1; i < size/2; i++) // FIXME: How come the nyquist frequency is quiet in saw waves, but loud in pure signal?
     {
         input_real[i] += input_real[size-i];
         input_imag[i] -= input_imag[size-i]; // imaginary negative frequencies are inverted
