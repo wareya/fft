@@ -30,23 +30,33 @@ THIS SOFTWARE.
 
 For a 8-sample input, the FFT's last three bins contain "negative" frequencies. (So, the last (size/2)-1 bins.) They are only meaningful for complex inputs.
 
+Only does the hard part, which means that the output will be louder if you keep applying this recursively.
+
 ## fft
 
 (\<same as fft_core, sans [gap] and [forwards]>)
 
-* compute forwards fft.
+* compute forwards fft, normalized by 1/sqrt(size)
 
 ## ifft
 
 (\<same as fft_core, sans [gap] and [forwards]>)
 
-* compute backwards fft (inverse fft, ifft)
+* above (including normalization) but inverse fft
 
 ## normalize_fft
 
 (in_real[], in_imag[], size)
 
-* divide the amplitude of each bin by the number of bins. obligatory after fft() for audio. modifies the input.
+* divide the amplitude of each bin by the number of bins. modifies the input. only needed if you're using fft_core.
+
+## half_normalize_fft
+
+(in_real[], in_imag[], size)
+
+* above, but uses the square root of the number of bins. done by default for fft() and ifft(), only needed if you're using fft_core.
+
+You may want to normalize by sqrt(size), but if so, that's up to you. Just copy the code or make your own.
 
 ## sanitize_fft
 

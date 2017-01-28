@@ -102,10 +102,6 @@ void fft_core(double* input_real, double* input_imag, uint64_t size, uint64_t ga
 
 #ifndef FFT_CORE_ONLY
 
-void fft(double* input_real, double* input_imag, uint64_t size, double* output_real, double* output_imag)
-{
-    fft_core(input_real, input_imag, size, 1, output_real, output_imag, 1);
-}
 void normalize_fft(double* input_real, double* input_imag, uint64_t size)
 {
     for(uint64_t i = 0; i < size; i++)
@@ -114,32 +110,47 @@ void normalize_fft(double* input_real, double* input_imag, uint64_t size)
         input_imag[i] /= size;
     }
 }
+void half_normalize_fft(double* input_real, double* input_imag, uint64_t size)
+{
+    for(uint64_t i = 0; i < size; i++)
+    {
+        input_real[i] /= sqrt(size);
+        input_imag[i] /= sqrt(size);
+    }
+}
+void fft(double* input_real, double* input_imag, uint64_t size, double* output_real, double* output_imag)
+{
+    fft_core(input_real, input_imag, size, 1, output_real, output_imag, 1);
+    half_normalize_fft(output_real, output_imag, size);
+}
 void ifft(double* input_real, double* input_imag, uint64_t size, double* output_real, double* output_imag)
 {
     fft_core(input_real, input_imag, size, 1, output_real, output_imag, 0);
+    half_normalize_fft(output_real, output_imag, size);
 }
 
-// sum positive and negative frequency data into positive data, and set negative data to 0
-// Nonsensical transformation if the original signal contained both real and imaginary content.
+// boost bins that are split into positive (A-handed spin) and negative (B-handed spin) parts
+// only useful if former input signal was not complex, so you only have to look at one bin to get the magnitude
+// FIXME or HELPME: How come the nyquist frequency is quiet in saw waves, but loud in pure signal?
 void sanitize_fft(double* input_real, double* input_imag, uint64_t size)
 {
-    for(uint64_t i = 1; i < size/2; i++) // FIXME: How come the nyquist frequency is quiet in saw waves, but loud in pure signal?
+    for(uint64_t i = 1; i < size/2; i++)
     {
-        input_real[i] += input_real[size-i];
-        input_imag[i] -= input_imag[size-i]; // imaginary negative frequencies are inverted
-        input_real[size-i] = 0;
-        input_imag[size-i] = 0;
+        input_real[i] *= 2;
+        input_imag[i] *= 2;
+        input_real[size-i] *= 2;
+        input_imag[size-i] *= 2;
     }
 }
-// See above
+// opposite of above
 void unsanitize_fft(double* input_real, double* input_imag, uint64_t size)
 {
     for(uint64_t i = 1; i < size/2; i++)
     {
         input_real[i] /= 2;
         input_imag[i] /= 2;
-        input_real[size-i] = input_real[i];
-        input_imag[size-i] = -input_imag[i];
+        input_real[size-i] /= 2;
+        input_imag[size-i] /= 2;
     }
 }
 

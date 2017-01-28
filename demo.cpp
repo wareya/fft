@@ -25,7 +25,7 @@ enum {
    ,TEST_BLANK
 };
 
-#define TEST TEST_SAW
+#define TEST TEST_NOISE
 
 void init(double* in_real, double* in_imag, uint64_t size)
 {
@@ -90,7 +90,7 @@ void init(double* in_real, double* in_imag, uint64_t size)
 
 int main()
 {
-    const int SIZE = 16;
+    const int SIZE = 32;
     srand(time(NULL));
     double* in_real  = (double*)malloc(sizeof(double)*SIZE);
     double* in_imag  = (double*)malloc(sizeof(double)*SIZE);
@@ -105,9 +105,8 @@ int main()
     puts("");
     
     fft(in_real, in_imag, SIZE, out_real, out_imag);
-    normalize_fft(out_real, out_imag, SIZE);
     
-    // operation only sensical if original input was not complex
+    // operation only useful if former signal was not complex
     if(TEST < TEST_COMPLEXIMPULSE or TEST > TEST_COMPLEXNOISE)
         sanitize_fft(out_real, out_imag, SIZE);
     
@@ -117,7 +116,7 @@ int main()
         printf("%d\t%.2f\t%.2f\t%.2f \n", i, out_real[i], out_imag[i], sqrt(out_real[i]*out_real[i]+out_imag[i]*out_imag[i]));
     puts("");
     
-    // operation only sensical if original input was not complex
+    // operation only useful if former signal was not complex
     if(TEST < TEST_COMPLEXIMPULSE or TEST > TEST_COMPLEXNOISE)
         unsanitize_fft(out_real, out_imag, SIZE);
     
