@@ -1,5 +1,5 @@
 /* fft.hpp =========================
-    Public-domain-like single-header library
+    Public-domain single-header library
     implementing radix-2 decimation-in-time FFT (i.e. FFT for powers of 2)
 
 This software is dual-licensed to the public domain and under the following
