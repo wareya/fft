@@ -25,7 +25,7 @@ enum {
    ,TEST_BLANK
 };
 
-#define TEST TEST_HALF
+#define TEST TEST_NOISE
 
 void init(double* in_real, double* in_imag, uint64_t size)
 {
@@ -106,10 +106,20 @@ int main()
     
     fft(in_real, in_imag, SIZE, out_real, out_imag);
     
+    // end FFT display for real inputs early
+    bool signal_was_real = (TEST < TEST_COMPLEXIMPULSE or TEST > TEST_COMPLEXNOISE);
+    
     puts("transform");
     puts("bin\treal\timag\tmag");
     for(int i = 0; i < SIZE; i++)
-        printf("%d\t%.2f\t%.2f\t%.2f \n", i, out_real[i], out_imag[i], sqrt(out_real[i]*out_real[i]+out_imag[i]*out_imag[i]));
+    {
+        // boost nonunique frequencies for real inputs on display
+        double factor = (i>0 and i<SIZE/2 and signal_was_real)?2:1;
+        printf("%d\t%.2f\t%.2f\t%.2f \n", i, out_real[i]*factor, out_imag[i]*factor, sqrt(out_real[i]*out_real[i]+out_imag[i]*out_imag[i])*factor);
+        // end FFT display for real inputs early
+        if(i >= SIZE/2 and signal_was_real)
+            break;
+    }
     puts("");
     
     ifft(out_real, out_imag, SIZE, in_real, in_imag);
