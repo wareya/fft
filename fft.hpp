@@ -130,7 +130,7 @@ void ifft(double* input_real, double* input_imag, uint64_t size, double* output_
 }
 
 // boost bins that are split into positive (A-handed spin) and negative (B-handed spin) parts
-// only useful if former input signal was not complex, so you only have to look at one bin to get the magnitude
+// only useful if former input signal was not complex, for only needing to look at one bin to get the magnitude
 // FIXME or HELPME: How come the nyquist frequency is quiet in saw waves, but loud in pure signal?
 void sanitize_fft(double* input_real, double* input_imag, uint64_t size)
 {
