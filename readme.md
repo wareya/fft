@@ -20,12 +20,12 @@ THIS SOFTWARE.
 
 * in_real:    pointer to real-valued spatial samples (for audio, this is where your entire audio signal goes)
 * in_imag:    pointer to imaginary-valued ones (not useful for audio)
-**     in_imag is allowed to be nullptr. If so, it will be treated as if it were all zeroes.
+* *     in_imag is allowed to be nullptr. If so, it will be treated as if it were all zeroes.
 * size:       number of complex samples per domain. for audio, this is the number of real samples you have. must be a power of 2. Algorithm will definitely fail and possibly crash otherwise, not tested.
 * gap:        must be 1 for outside callers. used for recursion.
 * out_real:   pointer to space for real-valued output. does not need to be initialized. must be allocated.
 * out_imag:   same as above, for imaginary. not optional.
-**     out_real and out_imag work together to store a complex number (2d vector) representing the phase and amplitude of the given frequency band, even for wholly real inputs.
+* *     out_real and out_imag work together to store a complex number (2d vector) representing the phase and amplitude of the given frequency band, even for wholly real inputs.
 * forwards:   if true, transform is forwards (fft). if false, transform is backwards (ifft).
 
 ## fft
