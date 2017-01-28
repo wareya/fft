@@ -55,7 +55,7 @@ unsanitize_fft
 // address of cell if base adderss not nullptr, nullptr otherwise
 #define fft_private_safe_addrof(ptr,i) ((ptr!=nullptr)?(&(ptr[i])):(nullptr))
 
-// For a 8-sample input, the FFT's last three bins contain "negative" frequencies. They are only meaningful for complex inputs.
+// For a 8-sample input, the FFT's last three bins contain "negative" frequencies. (So, the last (size/2)-1 bins.) They are only meaningful for complex inputs.
 void fft_core(double* input_real, double* input_imag, uint64_t size, uint64_t gap, double* output_real, double* output_imag, bool forwards)
 {
     if(size == 1)
@@ -73,7 +73,6 @@ void fft_core(double* input_real, double* input_imag, uint64_t size, uint64_t ga
         fft_core(input_real        , input_imag                             , size/2, gap*2, output_real           , output_imag           , forwards);
         fft_core(&(input_real[gap]), fft_private_safe_addrof(input_imag,gap), size/2, gap*2, &(output_real[size/2]), &(output_imag[size/2]), forwards);
         // non-combed decimated output to non-combed correlated output
-        // i is meant to cover half the array so size is used bare
         for(uint64_t i = 0; i < size/2; i++)
         {
             double a_real = output_real[i];

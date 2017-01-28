@@ -98,6 +98,7 @@ int main()
     double* out_real = (double*)malloc(sizeof(double)*SIZE);
     double* out_imag = (double*)malloc(sizeof(double)*SIZE);
     init(in_real, in_imag, SIZE);
+    
     puts("data");
     puts("sample\treal\timag\tmag");
     for(int i = 0; i < SIZE; i++)
