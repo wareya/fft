@@ -1,3 +1,6 @@
+#ifndef FFT_SINGLEHEADER_INCLUDED
+#define FFT_SINGLEHEADER_INCLUDED
+
 /* fft.hpp =========================
     Public-domain single-header library
     implementing radix-2 decimation-in-time FFT (i.e. FFT for powers of 2)
@@ -139,3 +142,5 @@ void unsanitize_fft(double* input_real, double* input_imag, uint64_t size)
 }
 
 #endif // ifndef FFT_CORE_ONLY
+
+#endif FFT_SINGLEHEADER_INCLUDED
